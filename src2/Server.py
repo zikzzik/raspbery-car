@@ -22,11 +22,11 @@ class Server:
     def run(self):
         print("Server started !")
         while True:
-            print("a")
             client_socket, (host, port) = self.socket_connection.accept()
             message = client_socket.recv(2048).decode()
-            threading.Thread(target=self.route_message, args=(message,),
-                             kwargs={"host": host, "port": port, "socket": client_socket}).start()
+            self.route_message(message, host=host, port=port, socket=client_socket)
+            # threading.Thread(target=self.route_message, args=(message,),
+            #                  kwargs={"host": host, "port": port, "socket": client_socket}).start()
 
     def route_message(self, message, **kwargs):
         route_dict = {"connect": self.connect,
@@ -82,14 +82,22 @@ class Server:
         return
 
     def forward(self, host, port, socket):
-        if host in self.car_registry.keys():
-            car_socket = self.car_registry[host]
+
+        if host in self.controller_registry.keys():
+            car_name = self.controller_registry[host].car_name
+        else:
+            socket.send("unknown_controller".encode())
+            return
+
+        if car_name in self.car_registry.keys():
+            car_socket = self.car_registry[car_name].socket
         else:
             socket.send("unknown_car".encode())
             return
 
         command = self.apply_modify_car("forward")
         car_socket.send(command.encode())
+        socket.send("ok".encode())
         return
 
     def apply_modify_car(self, command):

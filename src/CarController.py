@@ -1,11 +1,13 @@
 import Adafruit_PCA9685
 import time
 import RPi.GPIO as GPIO
+
 GPIO.cleanup()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-class Car:
+
+class CarController:
     def __init__(self, direction):
         self.direction = direction
 
@@ -35,8 +37,8 @@ class Car:
 
 if __name__ == '__main__':
     pwm = Adafruit_PCA9685.PCA9685()
-    pwm.set_pwm_freq(50) # Set the frequency of the PWM signal
-    while True：# Make the servo connected to the No. 3 servo port on the Robot HAT drive board reciprocate
+    pwm.set_pwm_freq(50)  # Set the frequency of the PWM signal
+    while True:
         pwm.set_pwm(3, 0, 300)
         time.sleep(1)
         pwm.set_pwm(3, 0, 400)
