@@ -1,6 +1,4 @@
 import socket
-import time
-
 
 
 class SocketClient:
@@ -44,13 +42,3 @@ class SocketClient:
 
         self.client.close()
 
-if __name__ == "__main__":
-    pass
-    # s = SocketClient(lambda x: print("receive", x))
-    # s.send("conn ma")
-    # time.sleep(1)
-    # s.send("forward")
-    # time.sleep(1)
-    # s.send("backward")
-    # time.sleep(1)
-    # s.send("left")

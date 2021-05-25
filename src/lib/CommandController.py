@@ -1,13 +1,13 @@
 from pynput import keyboard
-from lib.SocketClient import SocketClient
+from .SocketClient import SocketClient
 import sys
 
 
 class CommandController:
 
-    def __init__(self, car_name):
+    def __init__(self, car_name, host="localhost", port="port"):
         self.car_name = car_name
-        self.client = SocketClient(lambda x: print("receive", x), host="localhost", port=9345)
+        self.client = SocketClient(lambda x: print("receive", x), host=host, port=port)
         self.client.send(f"connect {self.car_name}")
 
     def forward(self):

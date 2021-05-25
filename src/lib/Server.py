@@ -1,11 +1,10 @@
 import threading
-from lib.SocketConnection import SocketConnection
-from lib.SocketServer import SocketServer
-from lib.SocketClient import SocketClient
-from Registry import Registry
-from Controller import Controller
-from Car import Car
-from Errors import *
+from .SocketServer import SocketServer
+from .SocketClient import SocketClient
+from .Registry import Registry
+from .Controller import Controller
+from .Car import Car
+from .Errors import *
 
 
 class Server:
@@ -15,21 +14,11 @@ class Server:
         self.port = port
         self.socket_connection = None
 
-        # self.socket_connection = SocketConnection(self.host, self.port).create_server()
         self.socket_server = SocketServer(self.route_message, self.host, self.port)
         self.car_registry = Registry()
         self.controller_registry = Registry()
 
         self.lock = threading.Lock()
-
-    # def run(self):
-    #     print("Server started !")
-    #     while True:
-    #         client_socket, (host, port) = self.socket_connection.accept()
-    #         message = client_socket.recv(2048).decode()
-    #         self.route_message(message, host=host, port=port, socket=client_socket)
-    #         # threading.Thread(target=self.route_message, args=(message,),
-    #         #                  kwargs={"host": host, "port": port, "socket": client_socket}).start()
 
     def run(self):
         self.socket_server.start()
@@ -151,7 +140,3 @@ class Server:
     def apply_modify_car(self, command):
         return command
 
-
-
-if __name__ == "__main__":
-    Server("localhost", 9345).run()
