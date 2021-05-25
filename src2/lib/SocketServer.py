@@ -13,20 +13,20 @@ class SocketServer:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((self.host, self.port))
 
-    def handle_client(self, conn, host, port):
+    def handle_client(self, my_socket, host, port):
         connected = True
         while connected:
-            msg_length = conn.recv(self.header).decode()
+            msg_length = my_socket.recv(self.header).decode()
             if msg_length:
                 msg_length = int(msg_length)
-                msg = conn.recv(msg_length).decode()
+                msg = my_socket.recv(msg_length).decode()
                 if msg == self.disconnect_msg:
                     connected = False
 
-                res = self.callback(msg)
-                conn.send(res.encode())
+                res = self.callback(msg, my_socket=my_socket, host=host, port=port)
+                my_socket.send(res.encode())
 
-        conn.close()
+        my_socket.close()
 
     def start(self):
         self.server.listen()
