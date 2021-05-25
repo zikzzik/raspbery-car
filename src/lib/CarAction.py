@@ -73,21 +73,26 @@ class CarAction:
         self.motor_A(1, speed)
         self.motor_B(1, speed)
         time.sleep(action_time)
+        self.stop_motor()
 
     def left(self, action_time, speed):
         self.motor_A(-1, speed)
         self.motor_B(-1, speed)
         time.sleep(action_time)
+        self.stop_motor()
 
     def forward(self, action_time, speed):
         self.motor_A(1, speed)
         self.motor_B(-1, speed)
         time.sleep(action_time)
+        self.stop_motor()
 
     def backward(self, action_time, speed):
         self.motor_A(-1, speed)
         self.motor_B(1, speed)
         time.sleep(action_time)
+        self.stop_motor()
+
 
 
 # if __name__ == "__main__":
