@@ -15,7 +15,7 @@ class CarController:
     def forward(self):
         pass
 
-    def packward(self):
+    def backward(self):
         pass
 
     def left(self):
@@ -28,7 +28,7 @@ class CarController:
         if self.direction == 'forward':
             self.forward()
         if self.direction == 'backward':
-            self.packward()
+            self.backward()
         if self.direction == 'left':
             print('up')
         if self.direction == 'right':

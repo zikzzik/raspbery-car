@@ -17,15 +17,4 @@ if __name__ == "__main__":
     s = SocketClient(lambda x: print("receive", x), host="localhost", port=9345)
     s.send("register ma_voiture")
 
-    connected = True
-    while connected:
-        msg_length = s.client.recv(s.header).decode()
-        if msg_length:
-            msg_length = int(msg_length)
-            msg = s.client.recv(msg_length).decode()
-            if msg == s.disconnect_msg:
-                connected = False
-
-            print("action :", msg)
-
-    s.client.close()
+    s.wait_many_responses()

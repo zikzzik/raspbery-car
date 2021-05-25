@@ -30,6 +30,20 @@ class SocketClient:
     def from_socket(cls, my_socket, callback=None):
         return cls(my_socket=my_socket, callback=callback)
 
+    def wait_many_responses(self):
+        connected = True
+        while connected:
+            msg_length = self.client.recv(self.header).decode()
+            if msg_length:
+                msg_length = int(msg_length)
+                msg = self.client.recv(msg_length).decode()
+                if msg == self.disconnect_msg:
+                    connected = False
+
+                print("action :", msg)
+
+        self.client.close()
+
 if __name__ == "__main__":
     pass
     # s = SocketClient(lambda x: print("receive", x))
