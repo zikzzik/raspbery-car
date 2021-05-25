@@ -17,6 +17,7 @@ class CarAction:
         GPIO.cleanup()
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
+        self.setup()
 
     def stop_motor(self):
         GPIO.output(Motor_A_Pin1, GPIO.LOW)
