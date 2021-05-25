@@ -89,11 +89,11 @@ class CarAction:
         time.sleep(action_time)
 
 
-if __name__ == "__main__":
-    a = CarAction()
-    a.stop_motor()
-    a.forward(1, 50)
-    a.backward(1, 50)
-    a.left(1, 50)
-    a.right(1, 50)
-    a.stop_motor()
+# if __name__ == "__main__":
+#     a = CarAction()
+#     a.stop_motor()
+#     a.forward(1, 50)
+#     a.backward(1, 50)
+#     a.left(1, 50)
+#     a.right(1, 50)
+#     a.stop_motor()

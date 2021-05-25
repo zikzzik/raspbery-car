@@ -28,7 +28,8 @@ class SocketClient:
     def from_socket(cls, my_socket, callback=None):
         return cls(my_socket=my_socket, callback=callback)
 
-    def wait_many_responses(self):
+    def wait_many_responses(self, callback):
+        print("car ready to move !")
         connected = True
         while connected:
             msg_length = self.client.recv(self.header).decode()
@@ -37,8 +38,8 @@ class SocketClient:
                 msg = self.client.recv(msg_length).decode()
                 if msg == self.disconnect_msg:
                     connected = False
-
                 print("action :", msg)
+                callback(msg)
 
         self.client.close()
 

@@ -4,7 +4,6 @@ from .SocketClient import SocketClient
 
 class CarController:
     def __init__(self, car_name="my_car", host="localhost", port=9000, action_time=1, speed=50):
-
         self.action_time = action_time
         self.speed = speed
         self.car_name = car_name
@@ -37,4 +36,4 @@ class CarController:
         self.car_action.right(self.action_time, self.speed)
 
     def run(self):
-        self.client.wait_many_responses()
+        self.client.wait_many_responses(self.route_message)
