@@ -16,10 +16,10 @@ class SocketClient:
 
     def send(self, msg):
         b_msg = msg.encode()
-        msg_length = len(b_msg)
-        send_length = str(msg_length).encode()
-        send_length += b' ' * (self.header - len(send_length))
-        self.client.send(send_length)
+        # msg_length = len(b_msg)
+        # send_length = str(msg_length).encode()
+        # send_length += b' ' * (self.header - len(send_length))
+        # self.client.send(send_length)
         self.client.send(b_msg)
         if self.callback is not None:
             self.callback(self.client.recv(2048).decode())

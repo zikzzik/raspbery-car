@@ -16,15 +16,15 @@ class SocketServer:
     def handle_client(self, my_socket, host, port):
         connected = True
         while connected:
-            msg_length = my_socket.recv(self.header).decode()
-            if msg_length:
-                msg_length = int(msg_length)
-                msg = my_socket.recv(msg_length).decode()
-                if msg == self.disconnect_msg:
-                    connected = False
-
-                res = self.callback(msg, my_socket=my_socket, host=host, port=port)
-                my_socket.send(res.encode())
+            # msg_length = my_socket.recv(self.header).decode()
+            # if msg_length:
+            #     msg_length = int(msg_length)
+            #     msg = my_socket.recv(msg_length).decode()
+            #     if msg == self.disconnect_msg:
+            #         connected = False
+            msg = my_socket.recv(1048).decode()
+            res = self.callback(msg, my_socket=my_socket, host=host, port=port)
+            my_socket.send(res.encode())
 
         my_socket.close()
 
