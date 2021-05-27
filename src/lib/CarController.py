@@ -30,7 +30,7 @@ class CarController:
         self.car_action.backward(self.action_time, self.speed)
 
     def left(self):
-        self.car_action.forward(self.action_time, self.speed)
+        self.car_action.left(self.action_time, self.speed)
 
     def right(self):
         self.car_action.right(self.action_time, self.speed)
