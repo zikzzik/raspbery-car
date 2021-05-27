@@ -32,10 +32,14 @@ class SocketClient:
         print("car ready to move !")
         connected = True
         while connected:
-            msg_length = self.client.recv(self.header).decode()
-            if msg_length:
-                msg_length = int(msg_length)
-                msg = self.client.recv(msg_length).decode()
+            # msg_length = self.client.recv(self.header).decode()
+            # if msg_length:
+            #     msg_length = int(msg_length)
+            #     msg = self.client.recv(msg_length).decode()
+            #     if msg == self.disconnect_msg:
+            #         connected = False
+            msg = self.client.recv(2048).decode()
+            if len(msg) != 0:
                 if msg == self.disconnect_msg:
                     connected = False
                 print("action :", msg)
