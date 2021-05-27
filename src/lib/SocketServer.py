@@ -23,8 +23,9 @@ class SocketServer:
             #     if msg == self.disconnect_msg:
             #         connected = False
             msg = my_socket.recv(1048).decode()
-            res = self.callback(msg, my_socket=my_socket, host=host, port=port)
-            my_socket.send(res.encode())
+            if len(msg) != 0:
+                res = self.callback(msg, my_socket=my_socket, host=host, port=port)
+                my_socket.send(res.encode())
 
         my_socket.close()
 
