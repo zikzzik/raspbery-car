@@ -7,7 +7,7 @@ class Registry:
         self.element_dict = {}
 
     def add(self, element):
-        if element not in self.keys():
+        if element.key() not in self.keys():
             self.element_dict[element.key()] = element
         else:
             raise AlreadyExistError("Try add car that already exist")

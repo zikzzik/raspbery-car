@@ -9,6 +9,7 @@ class CommandController:
         self.car_name = car_name
         self.client = SocketClient(lambda x: print("receive", x), host=host, port=port)
         self.client.send(f"connect {self.car_name}")
+        self.speed = 50
 
     def forward(self):
         self.client.send("forward")
@@ -22,8 +23,17 @@ class CommandController:
     def right(self):
         self.client.send("right")
 
+    def speed_up(self):
+        self.speed += 5
+        self.client.send(f"speed {self.speed}")
+
+    def speed_down(self):
+        self.speed -= 5
+        self.client.send(f"speed {self.speed}")
+
     def on_press(self, key):
-        ref_key_dict = {"z": self.forward, "s": self.backward, "q": self.left, "d": self.right}
+        ref_key_dict = {"z": self.forward, "s": self.backward, "q": self.left, "d": self.right, "r": self.speed_up,
+                        "f": self.speed_down}
         try:
             print(key.char)
             if key.char in ref_key_dict.keys():

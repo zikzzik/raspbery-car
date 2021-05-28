@@ -30,6 +30,7 @@ class Server:
                       "backward": self.backward,
                       "left": self.left,
                       "right": self.right,
+                      "speed": self.speed,
                       }
 
         message_list = message.split(" ")
@@ -71,7 +72,7 @@ class Server:
             self.car_registry.add(Car(robot_name, host, port, my_socket))
         except AlreadyExistError:
             print("Car already exist !")
-            return "already_exist"
+            return "already_used"
         finally:
             self.lock.release()
         print(f"register car: {host} -> {robot_name} ")
@@ -136,6 +137,20 @@ class Server:
         command = self.apply_modify_car("right")
         car_socket.send(command)
         return "ok"
+
+    def speed(self, speed, host, port, my_socket):
+        if host in self.controller_registry.keys():
+            car_name = self.controller_registry[host].car_name
+        else:
+            return "unknown_controller"
+
+        if car_name in self.car_registry.keys():
+            car_socket = self.car_registry[car_name].socket
+        else:
+            return "unknown_car"
+
+        command = self.apply_modify_car("right")
+        car_socket.send(f"speed {speed}")
 
     def apply_modify_car(self, command):
         return command

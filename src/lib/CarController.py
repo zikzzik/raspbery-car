@@ -13,12 +13,16 @@ class CarController:
         self.client.send(f"register {car_name}")
 
     def route_message(self, message):
+
         route_dict = {"forward": self.forward,
                       "backward": self.backward,
                       "left": self.left,
-                      "right": self.right}
+                      "right": self.right,
+                      "speed": self.set_speed}
 
         if message in route_dict.keys():
+            if "speed" in message:
+                self.set_speed(int(message[7:]))
             route_dict[message]()
         else:
             ValueError(f"Bad message {message}")
@@ -34,6 +38,9 @@ class CarController:
 
     def right(self):
         self.car_action.right(self.action_time, self.speed)
+
+    def set_speed(self, speed):
+        self.speed = speed
 
     def run(self):
         self.client.wait_many_responses(self.route_message)
