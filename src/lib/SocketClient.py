@@ -21,8 +21,8 @@ class SocketClient:
         # send_length += b' ' * (self.header - len(send_length))
         # self.client.send(send_length)
         self.client.send(b_msg)
-        if self.callback is not None:
-            self.callback(self.client.recv(2048).decode())
+        # if self.callback is not None:
+        #     self.callback(self.client.recv(2048).decode())
 
     @classmethod
     def from_socket(cls, my_socket, callback=None):

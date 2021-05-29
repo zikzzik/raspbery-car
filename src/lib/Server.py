@@ -151,6 +151,7 @@ class Server:
 
         command = self.apply_modify_car("right")
         car_socket.send(f"speed {speed}")
+        return "ok"
 
     def apply_modify_car(self, command):
         return command
