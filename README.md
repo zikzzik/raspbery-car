@@ -18,6 +18,6 @@ Les étapes à suivre pour lancer le voiture (seveur, client, commande) :
   - Paramétrer le fichier main_voiture.py (ip, port et nom de la voiture)
   - Exécuter la commande python3 main_serveur.py
 
-Les commandes disponible pour la voiture sont :
+Les commandes disponibles pour la voiture sont :
 - z : avancer, s : reculer, d : tourner à gauche, q : tourner à droite.
 - r : augmenter la vitesse et f : pour diminuer
